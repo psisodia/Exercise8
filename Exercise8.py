@@ -13,12 +13,12 @@ def make_chains(my_file):
     markov chains."""
 
     f = open(my_file)
-    filetext = f.read().replace('\n', " ")
-    filetext = re.sub('[,)(]', "", filetext)
+    filetext = f.read()
+    filetext = re.sub('[,)(_]', "", filetext)
             
     f.close()
     
-    words = filetext.split(' ')
+    words = filetext.split()
 
     bigrams_dict = {}
 
@@ -35,7 +35,6 @@ def make_chains(my_file):
 
         i += 1
 
-    #print bigrams_dict
 
     return bigrams_dict
 
@@ -45,23 +44,30 @@ def make_text(bigrams_dict):
     key = random.choice(bigrams_dict.keys())
     #print key
     i = 0
-    random_text_list = [key[0], key[1]]
+    random_text_list = [key[0].title(), key[1]]
     #print random_text_list
 
-    for i in range(0,10):
+    for i in range(0,50):
         new_word = random.choice(bigrams_dict[key])
         #print new_word
         random_text_list.append(new_word)
         #print random_text_list
         key = (key[1], new_word) 
-        print key
+        #print key
         i+= 1
 
     return random_text_list
 
 def print_list_as_string(random_text_list):
+    length = int(raw_input("How many characters should the output be?"))
+
     space = ' '
-    print space.join(random_text_list)
+    text_string = space.join(random_text_list)
+    text_string = text_string[0:length]
+    position_of_period = text_string.rfind(".")
+    text_string = text_string[0:position_of_period+1]
+    print position_of_period
+    print text_string
 
  
 
