@@ -2,6 +2,7 @@
 
 from sys import argv
 import re
+import random
 script, filename = argv
 
 
@@ -34,14 +35,34 @@ def make_chains(my_file):
 
         i += 1
 
-    print bigrams_dict
+    #print bigrams_dict
 
     return bigrams_dict
 
-def make_text(chains):
+def make_text(bigrams_dict):
     """Takes a dictionary of markov chains and returns random text
     based off an original text."""
-    return "Here's some random text."
+    key = random.choice(bigrams_dict.keys())
+    #print key
+    i = 0
+    random_text_list = [key[0], key[1]]
+    #print random_text_list
+
+    for i in range(0,20):
+        new_word = random.choice(bigrams_dict[key])
+        #print new_word
+        random_text_list.append(new_word)
+        #print random_text_list
+        key = (key[1], new_word) 
+        #print key
+        i+= 1
+
+    print random_text_list
+
+
+
+    #print random_text_list
+    #return "Here's some random text."
 
 def main():
     
@@ -49,7 +70,8 @@ def main():
     # Change this to read input_text from a file
     #input_text = "Some text"
 
-    make_chains(filename)
+    make_text(make_chains(filename))
+
     #random_text = make_text(chain_dict)
     #print my_text
 
