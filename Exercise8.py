@@ -14,7 +14,7 @@ def make_chains(my_file):
 
     f = open(my_file)
     filetext = f.read().replace('\n', " ")
-    filetext = re.sub('[,?)(]', "", filetext)
+    filetext = re.sub('[,)(]', "", filetext)
             
     f.close()
     
@@ -48,21 +48,22 @@ def make_text(bigrams_dict):
     random_text_list = [key[0], key[1]]
     #print random_text_list
 
-    for i in range(0,20):
+    for i in range(0,10):
         new_word = random.choice(bigrams_dict[key])
         #print new_word
         random_text_list.append(new_word)
         #print random_text_list
         key = (key[1], new_word) 
-        #print key
+        print key
         i+= 1
 
-    print random_text_list
+    return random_text_list
 
+def print_list_as_string(random_text_list):
+    space = ' '
+    print space.join(random_text_list)
 
-
-    #print random_text_list
-    #return "Here's some random text."
+ 
 
 def main():
     
@@ -70,7 +71,9 @@ def main():
     # Change this to read input_text from a file
     #input_text = "Some text"
 
-    make_text(make_chains(filename))
+    print_list_as_string(make_text(make_chains(filename)))
+
+
 
     #random_text = make_text(chain_dict)
     #print my_text
